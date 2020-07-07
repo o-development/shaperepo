@@ -15,10 +15,11 @@ class AggregateRequestHandler implements IRequestHandler {
 
   async handle(_req: Request, res: Response): Promise<void> {
     res.format({
-      "text/html": HtmlRequestHandler.handle,
-      "application/json+ld": ShexJRequestHandler.handle,
-      "application/json": ShexJRequestHandler.handle,
-      "text/shex": ShexCRequestHandler.handle,
+      "text/html": (req: Request, res: Response) => HtmlRequestHandler.handle(req, res),
+      "application/json+ld": (req: Request, res: Response) => ShexJRequestHandler.handle(req, res),
+      "application/json": (req: Request, res: Response) => ShexJRequestHandler.handle(req, res),
+      "text/shex": (req: Request, res: Response) => ShexCRequestHandler.handle(req, res),
+      "text/event-stream": (req: Request, res: Response) => HtmlRequestHandler.handle(req, res),
     })
   }
 }
