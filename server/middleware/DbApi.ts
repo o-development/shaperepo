@@ -1,7 +1,9 @@
 import { Db, Collection } from "mongodb"
 
 export default class DbApi {
+  // @ts-ignore
   private shapeCollection: Collection
+  // @ts-ignore
   private termCollection: Collection
 
   constructor(db: Db) {

@@ -9,7 +9,11 @@ if (!mongoConnection || !mongoDb) {
 }
 const client = new MongoClient(mongoConnection)
 
-export default async function(req: Request, _res: Response, next: NextFunction) {
+export interface AugmentedRequest extends Request {
+  dbApi: DbApi
+}
+
+export default async function(req: AugmentedRequest, _res: Response, next: NextFunction) {
   if (!client.isConnected()) await client.connect();
   req.dbApi = new DbApi(client.db(mongoDb))
   return next()

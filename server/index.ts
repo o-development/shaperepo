@@ -1,5 +1,6 @@
-import express from "express";
+import express, { RequestHandler } from "express";
 import AggregateRequestHandler from "./requestHandlers/AggregateRequestHandler";
+import dbMiddleware from "./middleware/dbMiddleware";
 
 const port = parseInt(process.env.PORT || "3000", 10);
 const dev = process.env.NODE_ENV !== "production";
@@ -9,6 +10,7 @@ async function run() {
 
   await AggregateRequestHandler.init()
 
+  app.use(dbMiddleware as RequestHandler)
   app.use(AggregateRequestHandler.handle);
 
   app.listen(port, () => {
