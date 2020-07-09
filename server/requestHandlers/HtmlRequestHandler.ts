@@ -22,7 +22,9 @@ class HtmlRequestHandler implements IRequestHandler {
 
   async handle(req: Request, res: Response): Promise<void> {
     const parsedUrl = parse(req.url!, true)
-    await this.handler(req, res, parsedUrl)
+    await this.handler(req, res, parsedUrl).catch(e => {
+      next(e)
+    })
   }
 }
 
