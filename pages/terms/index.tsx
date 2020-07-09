@@ -5,6 +5,7 @@ import HttpError from 'util/HttpError';
 import BaseProps from 'util/BaseProps';
 import getErrorProps from 'util/getErrorProps';
 import TermRecord from 'types/TermRecord';
+import url from "url"
 
 interface TermProps extends BaseProps {
   termRecord?: TermRecord
@@ -26,7 +27,9 @@ const Terms = (props: TermProps) => {
 
 Terms.getInitialProps = async ({ req, query }: AugmentedNextPageContext): Promise<TermProps> => {
   try {
-    const res = await fetch(`${getBaseUrl(req)}/api/term?id=${query.id}`)
+    const reqUrl = url.parse(`${getBaseUrl(req)}/api/term`, true)
+    reqUrl.query = query
+    const res = await fetch(url.format(reqUrl))
     if (res.status !== 200) {
       throw new HttpError(res.status, await res.text())
     }

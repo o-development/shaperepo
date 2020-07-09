@@ -5,6 +5,7 @@ import BaseProps from 'util/BaseProps'
 import Error from 'next/error'
 import SchemaRecord from 'types/SchemaRecord'
 import HttpError from 'util/HttpError'
+import url from 'url'
 
 interface ShapeProps extends BaseProps {
   schemaRecord?: SchemaRecord, 
@@ -26,7 +27,9 @@ const Shapes = (props: ShapeProps) => {
 
 Shapes.getInitialProps = async ({ req, query }: AugmentedNextPageContext): Promise<ShapeProps> => {
   try {
-    const res = await fetch(`${getBaseUrl(req)}/api/shape?id=${query.id}`)
+    const reqUrl = url.parse(`${getBaseUrl(req)}/api/search`, true)
+    reqUrl.query = query
+    const res = await fetch(url.format(reqUrl))
     if (res.status !== 200) {
       throw new HttpError(res.status, await res.text())
     }

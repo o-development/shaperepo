@@ -1,21 +1,43 @@
 import fetch from 'isomorphic-unfetch'
 import { getBaseUrl, AugmentedNextPageContext } from 'util/nextPageContextUtil'
+import getErrorProps from 'util/getErrorProps'
+import BaseProps from 'util/BaseProps'
+import Error from 'next/error'
+import HttpError from 'util/HttpError'
+import SchemaMetadata from 'types/SchemaMetadata'
+import url from "url";
 
-const Search = ({ data }: { data: any }) => {
+interface SearchProps extends BaseProps {
+  results?: SchemaMetadata[], 
+}
+
+const Shapes = (props: SearchProps) => {
+  if (props.err) {
+    return <Error statusCode={props.err.status} title={props.err.message} />
+  }
   return (
     <div>
       <h1>Search</h1>
       <pre>
-        {JSON.stringify(data, null, 2)}
+        {JSON.stringify(props.results, null, 2)}
       </pre>
     </div>
   )
 }
 
-Search.getInitialProps = async ({ req, query }: AugmentedNextPageContext) => {
-  const res = await fetch(`${getBaseUrl(req)}/api/search?q=${query.q}`)
-  const json  = await res.json()
-  return { data: json }
+Shapes.getInitialProps = async ({ req, query }: AugmentedNextPageContext): Promise<SearchProps> => {
+  try {
+    const reqUrl = url.parse(`${getBaseUrl(req)}/api/search`, true)
+    reqUrl.query = query
+    const res = await fetch(url.format(reqUrl))
+    if (res.status !== 200) {
+      throw new HttpError(res.status, await res.text())
+    }
+    const json  = await res.json()
+    return { results: json as SchemaMetadata[] }
+  } catch(err) {
+    return getErrorProps(err)
+  }
 }
 
-export default Search
+export default Shapes

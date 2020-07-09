@@ -44,7 +44,8 @@ export default class DbApi {
     ]).toArray())[0];
   }
 
-  async searchSchema(_text: string): Promise<SchemaMetadata[]> {
-    throw new Error("Not Implemented");
+  async searchSchema(text: string): Promise<SchemaMetadata[]> {
+    const results = await this.shapeCollection.find({ $text: { $search: text } }).toArray()
+    return results.map((result) => result.metadata)
   }
 }

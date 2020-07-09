@@ -2,7 +2,7 @@ import { Response } from "express";
 import HttpError from "./HttpError"
 
 export default async function(error: HttpError, res: Response) {
-  console.log(error.stack)
+  console.error(error.stack)
   if (error.status) {
     res.status(error.status)
   } else {
