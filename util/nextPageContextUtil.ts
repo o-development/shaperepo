@@ -6,5 +6,5 @@ export interface AugmentedNextPageContext extends NextPageContext {
 }
 
 export function getBaseUrl(req?: AugmentedRequest) {
-  return req ? `${req.protocol}://${req.get("Host")}` : ""
+  return req ? `${req.protocol}://${req.headers.host}` : ""
 }
