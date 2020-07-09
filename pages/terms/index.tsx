@@ -4,9 +4,10 @@ import Error from "next/error";
 import HttpError from 'util/HttpError';
 import BaseProps from 'util/BaseProps';
 import getErrorProps from 'util/getErrorProps';
+import TermRecord from 'types/TermRecord';
 
 interface TermProps extends BaseProps {
-  data?: Record<string, any>
+  termRecord?: TermRecord
 }
 
 const Terms = (props: TermProps) => {
@@ -17,7 +18,7 @@ const Terms = (props: TermProps) => {
     <div>
       <h1>Terms</h1>
       <pre>
-        {JSON.stringify(props.data, null, 2)}
+        {JSON.stringify(props.termRecord, null, 2)}
       </pre>
     </div>
   )
@@ -30,7 +31,7 @@ Terms.getInitialProps = async ({ req, query }: AugmentedNextPageContext): Promis
       throw new HttpError(res.status, await res.text())
     }
     const json  = await res.json()
-    return { data: json }
+    return { termRecord: json as TermRecord }
   } catch (err) {
     return getErrorProps(err)
   }

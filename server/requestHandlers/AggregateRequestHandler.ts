@@ -19,7 +19,7 @@ class AggregateRequestHandler implements IRequestHandler {
       "application/json+ld": (req: Request, res: Response) => ShexJRequestHandler.handle(req, res),
       "application/json": (req: Request, res: Response) => ShexJRequestHandler.handle(req, res),
       "text/shex": (req: Request, res: Response) => ShexCRequestHandler.handle(req, res),
-      "default": (req: Request, res: Response) => HtmlRequestHandler.handle(req, res),
+      "text/event-stream": (req: Request, res: Response) => HtmlRequestHandler.handle(req, res),
     })
   }
 }

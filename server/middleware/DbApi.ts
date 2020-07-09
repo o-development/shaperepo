@@ -1,25 +1,47 @@
-import { Db, Collection } from "mongodb"
-import TermRecord from "types/TermRecord"
-import SchemaRecord from "types/SchemaRecord"
-import SchemaMetadata from "types/SchemaMetadata"
+import { Db, Collection } from "mongodb";
+import TermRecord from "types/TermRecord";
+import SchemaRecord from "types/SchemaRecord";
+import SchemaMetadata from "types/SchemaMetadata";
 
 export default class DbApi {
   // @ts-ignore
-  private shapeCollection: Collection
+  private shapeCollection: Collection<SchemaRecord>;
   // @ts-ignore
-  private termCollection: Collection
+  private termCollection: Collection<TermRecord>;
 
   constructor(db: Db) {
-    this.shapeCollection = db.collection("shapes")
-    this.termCollection = db.collection("terms")
+    this.shapeCollection = db.collection("shapes");
+    this.termCollection = db.collection("terms");
   }
 
-  async getTerm(id: string): Promise<TermRecord> {
-    return (await this.termCollection.findOne({ _id: id })) as TermRecord
+  async getTerm(id: string): Promise<TermRecord | null> {
+    return await this.termCollection.findOne({ _id: id });
   }
 
-  async getSchema(_id: string): Promise<SchemaRecord> {
-    throw new Error("Not Implemented");
+  async getSchema(id: string): Promise<SchemaRecord | null> {
+    return (await this.shapeCollection.aggregate([
+      {
+        $match: {
+          _id: id,
+        },
+      },
+      {
+        $lookup: {
+          from: "terms",
+          localField: "metadata.outgoingPredicateReferences",
+          foreignField: "_id",
+          as: "metadata.outgoingPredicateReferences",
+        },
+      },
+      {
+        $lookup: {
+          from: "terms",
+          localField: "metadata.outgoingObjectReferences",
+          foreignField: "_id",
+          as: "metadata.outgoingObjectReferences",
+        },
+      },
+    ]).toArray())[0];
   }
 
   async searchSchema(_text: string): Promise<SchemaMetadata[]> {
