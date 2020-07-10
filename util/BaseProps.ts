@@ -1,5 +1,8 @@
 import HttpError from "./HttpError";
 
 export default interface BaseProps {
-  err?: HttpError
+  err?: {
+    status: number,
+    message: string
+  }
 }

@@ -27,7 +27,7 @@ const Shapes = (props: ShapeProps) => {
 
 Shapes.getInitialProps = async ({ req, query }: AugmentedNextPageContext): Promise<ShapeProps> => {
   try {
-    const reqUrl = url.parse(`${getBaseUrl(req)}/api/search`, true)
+    const reqUrl = url.parse(`${getBaseUrl(req)}/api/shape`, true)
     reqUrl.query = query
     const res = await fetch(url.format(reqUrl))
     if (res.status !== 200) {
