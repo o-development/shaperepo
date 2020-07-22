@@ -3,11 +3,10 @@ import TermRecord from '../types/TermRecord';
 import SchemaRecord from '../types/SchemaRecord';
 import SchemaMetadata from '../types/SchemaMetadata';
 import traverseSchema from '../util/traverse/traverseSchema';
-import { rdfs } from '@tpluscode/rdf-ns-builders';
 import { shapes } from '../types/shexTypes';
 
-const RDF_VALUE: string = rdfs.label.value;
-const SERIALIZED_RDF_VALUE: string = rdfs.label.value.replace(/\./g, '%2E');
+const RDF_VALUE = 'http://www.w3.org/2000/01/rdf-schema#';
+const SERIALIZED_RDF_VALUE: string = RDF_VALUE.replace(/\./g, '%2E');
 
 export default class DbApi {
   private shapeCollection: Collection<SchemaRecord>;
