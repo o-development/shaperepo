@@ -2,6 +2,7 @@ import React from 'react';
 import { parse } from 'url';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
+import Link from 'next/link';
 
 interface CustomLinkProps {
   href: string;
@@ -28,21 +29,21 @@ const CustomLink: React.FunctionComponent<CustomLinkProps> = ({
       children
     );
 
-  if (target) {
+  if (target || isExternalLink) {
     return (
       <a href={href} target={target}>
         {content}
       </a>
     );
   }
-  return <a href={href}>{content}</a>;
+  // return <a href={href}>{content}</a>;
 
   // Can't use the link component because of glitch with encoding urls in the query
-  // return (
-  //   <Link href={url}>
-  //     <a>{content}</a>
-  //   </Link>
-  // )
+  return (
+    <Link href={href}>
+      <a>{content}</a>
+    </Link>
+  );
 };
 
 export default CustomLink;

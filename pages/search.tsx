@@ -10,6 +10,7 @@ import SearchBar from '../components/search/SearchBar';
 import SearchResults from '../components/search/SearchResults';
 import { NextPage, NextPageContext } from 'next';
 import absoluteUrl from 'next-absolute-url';
+import { Space } from 'antd';
 
 interface SearchProps extends BaseProps {
   results?: SchemaMetadata[];
@@ -22,10 +23,10 @@ const Search: NextPage<SearchProps> = (props: SearchProps): ReactElement => {
   }
   const results = props.results ? props.results : [];
   return (
-    <div>
+    <Space direction="vertical">
       <SearchBar initialSearch={props.query} />
       <SearchResults results={results} />
-    </div>
+    </Space>
   );
 };
 
@@ -38,7 +39,6 @@ Search.getInitialProps = async ({
     const { origin } = absoluteUrl(req);
     const reqUrl = url.parse(`${origin}/api/search`, true);
     reqUrl.query = query;
-    console.log(url.format(reqUrl));
     const res = await fetch(url.format(reqUrl));
     if (res.status !== 200) {
       throw new HttpError(res.status, await res.text());

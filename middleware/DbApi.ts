@@ -37,7 +37,7 @@ export default class DbApi {
           },
           {
             $lookup: {
-              from: 'terms',
+              from: 'shapes',
               localField: 'incomingObjectReferences',
               foreignField: '_id',
               as: 'incomingObjectReferences',
@@ -115,6 +115,11 @@ export default class DbApi {
     const results = await this.shapeCollection
       .find({ $text: { $search: text } })
       .toArray();
+    return results.map((result) => result.metadata);
+  }
+
+  async allSchemas(): Promise<SchemaMetadata[]> {
+    const results = await this.shapeCollection.find({}).toArray();
     return results.map((result) => result.metadata);
   }
 }

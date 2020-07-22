@@ -27,10 +27,7 @@ const RepresentationTable: React.FunctionComponent<RepresentationTableProps> = (
       render: function renderTablePredicate(predicate: string) {
         const label = getLabel(predicate);
         return label ? (
-          <CustomLink
-            href={`/terms?id=${encodeURIComponent(predicate)}`}
-            target="_blank"
-          >
+          <CustomLink href={`/terms?id=${encodeURIComponent(predicate)}`}>
             {label}
           </CustomLink>
         ) : (

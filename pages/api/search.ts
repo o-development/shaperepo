@@ -13,6 +13,9 @@ export default async function (
     if (!req.query.q || typeof req.query.q !== 'string') {
       throw new HttpError(400, `${req.query.q} is not a valid value for "q"`);
     }
+    if (req.query.q === '_all') {
+      res.json(await dbApi.allSchemas());
+    }
     res.json(await dbApi.searchSchema(req.query.q as string));
   } catch (err) {
     return returnError(err, res);
