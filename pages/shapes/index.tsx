@@ -7,8 +7,12 @@ import SchemaRecord from '../../types/SchemaRecord';
 import HttpError from '../../util/HttpError';
 import url from 'url';
 import ShapePage from '../../components/shapes/ShapesPage';
-import { NextPage, NextPageContext } from 'next';
+import { NextPage, GetServerSideProps } from 'next';
 import absoluteUrl from 'next-absolute-url';
+import { IncomingMessage, ServerResponse } from 'http';
+import { ParsedUrlQuery } from 'querystring';
+import getDbApi from '../../middleware/dbMiddleware';
+import returnError from '../../util/returnError';
 
 interface ShapeProps extends BaseProps {
   schemaRecord?: SchemaRecord;
@@ -24,11 +28,55 @@ const Shapes: NextPage<ShapeProps> = (props: ShapeProps) => {
   return <ShapePage schema={props.schemaRecord} />;
 };
 
-Shapes.getInitialProps = async ({
-  req,
-  res,
-  query,
-}: NextPageContext): Promise<ShapeProps> => {
+async function handleShexJ(
+  req: IncomingMessage,
+  res: ServerResponse,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  query: ParsedUrlQuery,
+): Promise<Record<string, unknown>> {
+  try {
+    const dbApi = await getDbApi();
+    if (!query.id || typeof query.id !== 'string') {
+      throw new HttpError(400, 'A single id must be provided');
+    }
+    const shexJ = await dbApi.getRawSchema(query.id);
+    delete shexJ.metadata;
+    delete shexJ._id;
+    res.setHeader('Content-Type', 'application/json');
+    res.write(JSON.stringify(shexJ));
+    res.end();
+  } catch (err) {
+    await returnError(err, res);
+  }
+  return {};
+}
+
+async function handleShexC(
+  req: IncomingMessage,
+  res: ServerResponse,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  query: ParsedUrlQuery,
+): Promise<Record<string, unknown>> {
+  try {
+    const dbApi = await getDbApi();
+    if (!query.id || typeof query.id !== 'string') {
+      throw new HttpError(400, 'A single id must be provided');
+    }
+    const shexC = (await dbApi.getRawSchema(query.id)).metadata.shexC;
+    res.setHeader('Content-Type', 'text/shex');
+    res.write(shexC);
+    res.end();
+  } catch (err) {
+    await returnError(err, res);
+  }
+  return {};
+}
+
+async function handleHtml(
+  req: IncomingMessage,
+  res: ServerResponse,
+  query: ParsedUrlQuery,
+): Promise<ShapeProps> {
   try {
     const { origin } = absoluteUrl(req);
     const reqUrl = url.parse(`${origin}/api/shape`, true);
@@ -42,6 +90,25 @@ Shapes.getInitialProps = async ({
   } catch (err) {
     return getErrorProps(err, res);
   }
+}
+
+export const getServerSideProps: GetServerSideProps = async ({
+  req,
+  res,
+  query,
+}) => {
+  if (req.headers.accept.includes('application/json')) {
+    return {
+      props: await handleShexJ(req, res, query),
+    };
+  } else if (req.headers.accept.includes('text/shex')) {
+    return {
+      props: await handleShexC(req, res, query),
+    };
+  }
+  return {
+    props: await handleHtml(req, res, query),
+  };
 };
 
 export default Shapes;

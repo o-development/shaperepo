@@ -21,6 +21,7 @@ const ShapesRepresentations: React.FunctionComponent<ShapesRepresentationsProps>
         onClick={(e) => setSelected(e.key as string)}
       >
         <Menu.Item key="gui">Table View</Menu.Item>
+        <Menu.Item key="shexC">ShexC View</Menu.Item>
         <Menu.Item key="shexJ">ShexJ View</Menu.Item>
       </Menu>
       {(() => {

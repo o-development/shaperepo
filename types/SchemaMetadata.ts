@@ -6,4 +6,5 @@ export default interface SchemaMetadata {
   incomingReferences: Reference[];
   outgoingPredicateReferences: Reference[];
   outgoingObjectReferences: Reference[];
+  shexC: string;
 }
