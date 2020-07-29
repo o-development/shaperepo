@@ -110,6 +110,10 @@ export default class DbApi {
     return newSchema;
   }
 
+  async getRawSchema(id: string): Promise<SchemaRecord | null> {
+    return await this.shapeCollection.findOne({ _id: id });
+  }
+
   async searchSchema(text: string): Promise<SchemaMetadata[]> {
     const results = await this.shapeCollection
       .find({ $text: { $search: text } })

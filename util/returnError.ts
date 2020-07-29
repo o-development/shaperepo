@@ -1,17 +1,20 @@
 import HttpError from './HttpError';
 import { ProjectResponse } from '../middleware/ReqRes';
+import { ServerResponse } from 'http';
 
-export default async function (
+export default async function returnError(
   error: HttpError,
-  res: ProjectResponse,
+  res: ProjectResponse | ServerResponse,
 ): Promise<void> {
   console.error(error.stack);
   if (error.status) {
-    res.status(error.status);
+    res.statusCode = error.status;
   } else {
-    res.status(500);
+    res.statusCode = 500;
   }
-  res.json({ error: error.message });
+  res.setHeader('Content-Type', 'application/json');
+  res.write(JSON.stringify({ message: error.message }));
+  res.end();
   // res.format({
   //   "text/plain": () => res.send(error.message),
   //   "application/json": () => res.json({ error: error.message }),
