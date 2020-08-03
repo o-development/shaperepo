@@ -17,6 +17,6 @@ export default async function (
     }
     res.json(await dbApi.searchSchema(req.query.q as string));
   } catch (err) {
-    return returnError(err, res);
+    await returnError(err, res);
   }
 }
