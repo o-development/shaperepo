@@ -11,6 +11,7 @@ import SearchResults from '../components/search/SearchResults';
 import { NextPage, NextPageContext } from 'next';
 import absoluteUrl from 'next-absolute-url';
 import { Space } from 'antd';
+import Head from 'next/head';
 
 interface SearchProps extends BaseProps {
   results?: SchemaMetadata[];
@@ -24,6 +25,9 @@ const Search: NextPage<SearchProps> = (props: SearchProps): ReactElement => {
   const results = props.results ? props.results : [];
   return (
     <Space direction="vertical">
+      <Head>
+        <title>{props.query} - Search on ShapeRepo</title>
+      </Head>
       <SearchBar initialSearch={props.query} />
       <SearchResults results={results} />
     </Space>

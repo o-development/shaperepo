@@ -2,6 +2,7 @@ import React from 'react';
 import { Row, Col, Space, Divider } from 'antd';
 import SearchBar from '../components/search/SearchBar';
 import { NextPage, NextPageContext } from 'next';
+import Head from 'next/head';
 import BaseProps from '../util/BaseProps';
 import SchemaMetadata from '../types/SchemaMetadata';
 import GridSearchResults from '../components/search/GridSearchResults';
@@ -21,6 +22,9 @@ const Home: NextPage<HomeProps> = ({ err, results }) => {
       style={{ backgroundColor: '#FFF' }}
       size="large"
     >
+      <Head>
+        <title>ShapeRepo - Make your Apps Interoperable</title>
+      </Head>
       <Row gutter={50} style={{ flexWrap: 'wrap' }}>
         <Col span={12} style={{ minWidth: '300px' }}>
           <Space
