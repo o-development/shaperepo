@@ -15,6 +15,7 @@ import getDbApi from '../../middleware/dbMiddleware';
 import returnError from '../../util/returnError';
 import Cors from '../../middleware/Cors';
 import Head from 'next/head';
+import mixpanel from 'mixpanel-browser';
 
 interface ShapeProps extends BaseProps {
   schemaRecord?: SchemaRecord;
@@ -27,6 +28,7 @@ const Shapes: NextPage<ShapeProps> = (props: ShapeProps) => {
   if (!props.schemaRecord) {
     return <Error statusCode={500} title={'No schema found'} />;
   }
+  mixpanel.track('Shape', { id: props.schemaRecord._id });
   return (
     <>
       <Head>

@@ -12,6 +12,7 @@ import { NextPage, NextPageContext } from 'next';
 import absoluteUrl from 'next-absolute-url';
 import { Space } from 'antd';
 import Head from 'next/head';
+import mixpanel from 'mixpanel-browser';
 
 interface SearchProps extends BaseProps {
   results?: SchemaMetadata[];
@@ -22,6 +23,7 @@ const Search: NextPage<SearchProps> = (props: SearchProps): ReactElement => {
   if (props.err) {
     return <Error statusCode={props.err.status} title={props.err.message} />;
   }
+  mixpanel.track('Search', { query: props.query });
   const results = props.results ? props.results : [];
   return (
     <Space direction="vertical">

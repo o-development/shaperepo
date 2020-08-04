@@ -1,8 +1,10 @@
 import React from 'react';
 import { NextPage } from 'next';
 import CustomLink from '../components/common/CustomLink';
+import mixpanel from 'mixpanel-browser';
 
 const Contact: NextPage = () => {
+  mixpanel.track('Contact Page Visited');
   return (
     <>
       <h2>Add your project&apos;s shapes to ShapeRepo</h2>

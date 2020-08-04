@@ -10,12 +10,14 @@ import absoluteUrl from 'next-absolute-url';
 import url from 'url';
 import HttpError from '../util/HttpError';
 import getErrorProps from '../util/getErrorProps';
+import mixpanel from 'mixpanel-browser';
 
 interface HomeProps extends BaseProps {
   results?: SchemaMetadata[];
 }
 
 const Home: NextPage<HomeProps> = ({ err, results }) => {
+  mixpanel.track('Home Page Visited');
   return (
     <Space direction="vertical" size="large">
       <Head>
