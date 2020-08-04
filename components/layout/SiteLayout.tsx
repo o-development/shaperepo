@@ -4,6 +4,7 @@ import { AppPropsType } from 'next/dist/next-server/lib/utils';
 import CustomLink from '../common/CustomLink';
 import SearchBar from '../search/SearchBar';
 import styles from './SiteLayout.module.css';
+import Head from 'next/head';
 
 const { Header, Content, Footer } = Layout;
 
@@ -13,6 +14,9 @@ const SiteLayout: React.FunctionComponent<AppPropsType> = ({
 }) => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
+      <Head>
+        <meta property="og:image" content="/ShapeRepoSplash.png"></meta>
+      </Head>
       <Header className="header">
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Space size="large">
