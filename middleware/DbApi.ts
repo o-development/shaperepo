@@ -122,7 +122,10 @@ export default class DbApi {
   }
 
   async allSchemas(): Promise<SchemaMetadata[]> {
-    const results = await this.shapeCollection.find({}).limit(24).toArray();
+    const results = await this.shapeCollection
+      .find({})
+      .sort({ 'metadata.importance': -1 })
+      .toArray();
     return results.map((result) => result.metadata);
   }
 }
