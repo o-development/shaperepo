@@ -6,13 +6,11 @@ export default async function returnError(
   error: HttpError,
   res: ProjectResponse | ServerResponse,
 ): Promise<void> {
-  console.error(error.stack);
   if (error.status) {
     res.statusCode = error.status;
   } else {
     res.statusCode = 500;
   }
-  res.setHeader('Content-Type', 'application/json');
   res.write(JSON.stringify({ message: error.message }));
   res.end();
   // res.format({

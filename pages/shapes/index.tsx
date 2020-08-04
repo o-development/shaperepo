@@ -13,6 +13,9 @@ import { IncomingMessage, ServerResponse } from 'http';
 import { ParsedUrlQuery } from 'querystring';
 import getDbApi from '../../middleware/dbMiddleware';
 import returnError from '../../util/returnError';
+import Cors from '../../middleware/Cors';
+import Head from 'next/head';
+import mixpanel from 'mixpanel-browser';
 
 interface ShapeProps extends BaseProps {
   schemaRecord?: SchemaRecord;
@@ -25,7 +28,15 @@ const Shapes: NextPage<ShapeProps> = (props: ShapeProps) => {
   if (!props.schemaRecord) {
     return <Error statusCode={500} title={'No schema found'} />;
   }
-  return <ShapePage schema={props.schemaRecord} />;
+  mixpanel.track('Shape', { id: props.schemaRecord._id });
+  return (
+    <>
+      <Head>
+        <title>{props.schemaRecord.metadata.label} - ShapeRepo</title>
+      </Head>
+      <ShapePage schema={props.schemaRecord} />
+    </>
+  );
 };
 
 async function handleShexJ(
@@ -42,6 +53,7 @@ async function handleShexJ(
     const shexJ = await dbApi.getRawSchema(query.id);
     delete shexJ.metadata;
     delete shexJ._id;
+    res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
     res.write(JSON.stringify(shexJ));
     res.end();
@@ -63,6 +75,7 @@ async function handleShexC(
       throw new HttpError(400, 'A single id must be provided');
     }
     const shexC = (await dbApi.getRawSchema(query.id)).metadata.shexC;
+    res.statusCode = 200;
     res.setHeader('Content-Type', 'text/shex');
     res.write(shexC);
     res.end();
@@ -97,6 +110,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   res,
   query,
 }) => {
+  await Cors(req, res);
   if (req.headers.accept.includes('application/json')) {
     return {
       props: await handleShexJ(req, res, query),

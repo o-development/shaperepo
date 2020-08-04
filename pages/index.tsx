@@ -1,7 +1,8 @@
 import React from 'react';
-import { Row, Col, Space, Divider } from 'antd';
+import { Row, Col, Space, Divider, Button } from 'antd';
 import SearchBar from '../components/search/SearchBar';
 import { NextPage, NextPageContext } from 'next';
+import Head from 'next/head';
 import BaseProps from '../util/BaseProps';
 import SchemaMetadata from '../types/SchemaMetadata';
 import GridSearchResults from '../components/search/GridSearchResults';
@@ -9,18 +10,19 @@ import absoluteUrl from 'next-absolute-url';
 import url from 'url';
 import HttpError from '../util/HttpError';
 import getErrorProps from '../util/getErrorProps';
+import mixpanel from 'mixpanel-browser';
 
 interface HomeProps extends BaseProps {
   results?: SchemaMetadata[];
 }
 
 const Home: NextPage<HomeProps> = ({ err, results }) => {
+  mixpanel.track('Home Page Visited');
   return (
-    <Space
-      direction="vertical"
-      style={{ backgroundColor: '#FFF' }}
-      size="large"
-    >
+    <Space direction="vertical" size="large">
+      <Head>
+        <title>ShapeRepo - Make your Apps Interoperable</title>
+      </Head>
       <Row gutter={50} style={{ flexWrap: 'wrap' }}>
         <Col span={12} style={{ minWidth: '300px' }}>
           <Space
@@ -36,11 +38,21 @@ const Home: NextPage<HomeProps> = ({ err, results }) => {
               Browse a library of data shapes to help you stucture your data so
               that other apps can understand it.
             </p>
+            <Button
+              type="primary"
+              href="https://medium.com/@JacksonMorgan/making-your-solid-apps-interoperable-with-shaperepo-com-8da512936073"
+              target="_blank"
+            >
+              Learn How
+            </Button>
             <SearchBar />
           </Space>
         </Col>
         <Col span={12} style={{ minWidth: '300px' }}>
-          <img src="/ShapeRepoSplash.png" style={{ width: '100%' }} />
+          <img
+            src="/ShapeRepoSplash.png"
+            style={{ width: '100%', marginTop: '40px' }}
+          />
         </Col>
       </Row>
       {!err && results && Array.isArray(results)

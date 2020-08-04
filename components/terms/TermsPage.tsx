@@ -4,6 +4,7 @@ import CustomLink from '../common/CustomLink';
 import Reference from '../../types/Reference';
 import { Table, Space } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
+import CopyToClipboardButton from '../common/CopyToClipboardButton';
 
 interface TermsPageProps {
   term: TermRecord;
@@ -59,7 +60,12 @@ const TermsPage: React.FunctionComponent<TermsPageProps> = ({ term }) => {
       title: 'Schema Link',
       dataIndex: '_id',
       render: function renderTermTableShemaLink(_id: string) {
-        return <CustomLink href={_id}>{_id}</CustomLink>;
+        return (
+          <Space>
+            <CopyToClipboardButton copyValue={_id} />
+            <CustomLink href={_id}>{_id}</CustomLink>
+          </Space>
+        );
       },
     },
   ];
@@ -68,9 +74,12 @@ const TermsPage: React.FunctionComponent<TermsPageProps> = ({ term }) => {
     <div>
       <h2>{term.label}</h2>
       <h1>
-        <CustomLink href={term._id} target="_blank">
-          {term._id}
-        </CustomLink>
+        <Space>
+          <CopyToClipboardButton copyValue={term._id} />
+          <CustomLink href={term._id} target="_blank">
+            {term._id}
+          </CustomLink>
+        </Space>
       </h1>
       <Space direction="vertical">
         {data.map((tableInfo) => {

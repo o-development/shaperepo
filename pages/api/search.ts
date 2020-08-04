@@ -7,7 +7,6 @@ export default async function (
   req: ProjectRequest,
   res: ProjectResponse,
 ): Promise<void> {
-  console.log(res);
   try {
     const dbApi = await getDbApi();
     if (!req.query.q || typeof req.query.q !== 'string') {

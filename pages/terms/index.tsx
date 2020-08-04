@@ -9,6 +9,8 @@ import url from 'url';
 import TermsPage from '../../components/terms/TermsPage';
 import { NextPage, NextPageContext } from 'next';
 import absoluteUrl from 'next-absolute-url';
+import Head from 'next/head';
+import mixpanel from 'mixpanel-browser';
 
 interface TermProps extends BaseProps {
   termRecord?: TermRecord;
@@ -21,7 +23,15 @@ const Terms: NextPage<TermProps> = (props: TermProps) => {
   if (!props.termRecord) {
     return <Error statusCode={500} title="No Term Found" />;
   }
-  return <TermsPage term={props.termRecord} />;
+  mixpanel.track('Term', { id: props.termRecord._id });
+  return (
+    <>
+      <Head>
+        <title>{props.termRecord.label} - ShapeRepo</title>
+      </Head>
+      <TermsPage term={props.termRecord} />
+    </>
+  );
 };
 
 Terms.getInitialProps = async ({

@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import { tripleExpr, tripleExprObject } from '../../types/shexTypes';
-import { Table } from 'antd';
+import { Table, Space } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
 import ShapeExprRepresentation from './guiRepresentations/ShapeExprRepresentation';
 import { shapeExpr } from '../../types/shexTypes';
 import { GetLabelContext } from './GuiShapeRepresentation';
 import CustomLink from '../common/CustomLink';
+import CopyToClipboardButton from '../common/CopyToClipboardButton';
 
 interface RepresentationTableProps {
   expressions: tripleExpr[];
@@ -26,7 +27,7 @@ const RepresentationTable: React.FunctionComponent<RepresentationTableProps> = (
       dataIndex: 'predicate',
       render: function renderTablePredicate(predicate: string) {
         const label = getLabel(predicate);
-        return label ? (
+        const renderedLink = label ? (
           <CustomLink href={`/terms?id=${encodeURIComponent(predicate)}`}>
             {label}
           </CustomLink>
@@ -34,6 +35,12 @@ const RepresentationTable: React.FunctionComponent<RepresentationTableProps> = (
           <CustomLink href={predicate} target="_blank">
             {predicate}
           </CustomLink>
+        );
+        return (
+          <Space>
+            <CopyToClipboardButton copyValue={predicate} />
+            {renderedLink}
+          </Space>
         );
       },
     },

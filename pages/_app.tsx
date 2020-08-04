@@ -1,38 +1,29 @@
 import * as React from 'react';
-
+import { AppPropsType } from 'next/dist/next-server/lib/utils';
+import SiteLayout from '../components/layout/SiteLayout';
 // Include stylesheet in a strange way
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import stylesheet from 'antd/dist/antd.min.css';
+import mixpanel from 'mixpanel-browser';
 
-import { Layout, Space } from 'antd';
-import { AppPropsType } from 'next/dist/next-server/lib/utils';
-import CustomLink from '../components/common/CustomLink';
-import SearchBar from '../components/search/SearchBar';
+// Init Mixpanel
+const productionHost = 'shaperepo.com';
+const prodToken = '335fd9d83426dab37d4e4b9946f01bf3';
+mixpanel.init(prodToken);
+if (
+  typeof window === 'undefined' ||
+  window.location.hostname.toLowerCase().search(productionHost) < 0
+) {
+  mixpanel.disable();
+}
 
-const { Header, Content } = Layout;
-
-const App: React.FunctionComponent<AppPropsType> = ({
-  Component,
-  pageProps,
-}) => {
+const App: React.FunctionComponent<AppPropsType> = (props) => {
   return (
-    <Layout>
+    <>
       <style dangerouslySetInnerHTML={{ __html: stylesheet }} />
-      <Header className="header">
-        <Space size="large">
-          <CustomLink href="/">
-            <img src="/ShapeRepoLogo.png" style={{ height: '28px' }} />
-          </CustomLink>
-          <SearchBar />
-        </Space>
-      </Header>
-      <Layout>
-        <Content style={{ padding: '50px', backgroundColor: '#FFF' }}>
-          <Component {...pageProps} />
-        </Content>
-      </Layout>
-    </Layout>
+      <SiteLayout {...props} />
+    </>
   );
 };
 
