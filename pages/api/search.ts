@@ -14,8 +14,9 @@ export default async function (
     }
     if (req.query.q === '_all') {
       res.json(await dbApi.allSchemas());
+    } else {
+      res.json(await dbApi.searchSchema(req.query.q as string));
     }
-    res.json(await dbApi.searchSchema(req.query.q as string));
   } catch (err) {
     return returnError(err, res);
   }
