@@ -10,11 +10,12 @@ import mixpanel from 'mixpanel-browser';
 // Init Mixpanel
 const productionHost = 'shaperepo.com';
 const prodToken = '335fd9d83426dab37d4e4b9946f01bf3';
+mixpanel.init(prodToken);
 if (
-  typeof window !== 'undefined' &&
-  window.location.hostname.toLowerCase().search(productionHost) >= 0
+  typeof window === 'undefined' ||
+  window.location.hostname.toLowerCase().search(productionHost) < 0
 ) {
-  mixpanel.init(prodToken);
+  mixpanel.disable();
 }
 
 const App: React.FunctionComponent<AppPropsType> = (props) => {
