@@ -8,7 +8,9 @@ if (!mongoConnection || !mongoDb) {
     'Environment varialbe "MONGO_CONNECTION" and "MONGO_DB" must be provided.',
   );
 }
-const client = new MongoClient(mongoConnection);
+const client = new MongoClient(mongoConnection, {
+  useUnifiedTopology: true,
+});
 
 export default async function getDbApi(): Promise<DbApi> {
   if (!client.isConnected()) await client.connect();

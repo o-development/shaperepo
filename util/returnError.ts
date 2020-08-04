@@ -10,9 +10,12 @@ export default async function returnError(
     res.statusCode = error.status;
   } else {
     res.statusCode = 500;
+    throw error;
   }
-  res.write(JSON.stringify({ message: error.message }));
-  res.end();
+  if (!res.writableEnded) {
+    res.write(JSON.stringify({ message: error.message }));
+    res.end();
+  }
   // res.format({
   //   "text/plain": () => res.send(error.message),
   //   "application/json": () => res.json({ error: error.message }),
