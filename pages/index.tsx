@@ -49,9 +49,17 @@ const Home: NextPage<HomeProps> = ({ err, results }) => {
           </Space>
         </Col>
         <Col span={12} style={{ minWidth: '300px' }}>
-          <img
-            src="/ShapeRepoSplash.png"
-            style={{ width: '100%', marginTop: '40px' }}
+          <div
+            style={{
+              width: '100%',
+              height: '50vh',
+              marginTop: '40px',
+              backgroundImage: 'url("/ShapeRepoSplash.png")',
+              backgroundSize: 'contain',
+              backgroundRepeat: 'no-repeat',
+              backgroundPositionX: 'center',
+              backgroundPositionY: 'center',
+            }}
           />
         </Col>
       </Row>
