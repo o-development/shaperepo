@@ -72,6 +72,9 @@ const NodeConstraintRepresentation: RepresenationComponent<NodeConstraint> = ({
     const dataTypeName = dataTypes[data.datatype] || data.datatype;
     return <Tag>{dataTypeName}</Tag>;
   }
+  if (data.nodeKind) {
+    return <Tag>{data.nodeKind}</Tag>;
+  }
   return null;
 };
 
