@@ -13,7 +13,16 @@ const SearchResult: React.FunctionComponent<SearchResultProps> = ({
   return (
     <CustomLink href={`/shapes?id=${encodeURIComponent(metadata.id)}`}>
       <Card hoverable title={metadata.label} style={{ maxWidth: '800px' }}>
-        <span>{metadata.id}</span>
+        <div
+          style={{
+            width: '100%',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'break-spaces',
+            overflow: 'hidden',
+          }}
+        >
+          {metadata.id}
+        </div>
       </Card>
     </CustomLink>
   );
