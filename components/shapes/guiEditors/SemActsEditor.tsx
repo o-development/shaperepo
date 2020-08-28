@@ -1,8 +1,8 @@
 import EditorComponent from './EditorComponent';
 import { SemAct } from '../../../types/shexTypes';
 
-const SemActEditor: EditorComponent<SemAct> = () => {
+const SemActsEditor: EditorComponent<SemAct[]> = () => {
   return null;
 };
 
-export default SemActEditor;
+export default SemActsEditor;

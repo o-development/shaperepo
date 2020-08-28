@@ -39,7 +39,7 @@ const SiteLayout: React.FunctionComponent<AppPropsType> = ({
         </div>
       </Header>
       <Layout>
-        <Content style={{ padding: '50px', backgroundColor: '#FFF' }}>
+        <Content style={{ backgroundColor: '#FFF' }}>
           <Component {...pageProps} />
         </Content>
       </Layout>
