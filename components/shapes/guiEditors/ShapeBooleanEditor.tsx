@@ -33,23 +33,27 @@ const ShapeBooleanEditor: EditorComponent<
               }}
             />
             <ShapeExprEditor data={shapeExpr} editMode={editMode} />
-            <Popconfirm
-              title="Are you sure delete this shape expression?"
-              onConfirm={() => console.log('yes')}
-              onCancel={() => console.log('no')}
-              okText="Yes"
-              cancelText="No"
-            >
-              <Button
-                shape="circle"
-                icon={<CloseOutlined />}
-                style={{
-                  position: 'absolute',
-                  top: '5px',
-                  right: 0,
-                }}
-              />
-            </Popconfirm>
+            {editMode ? (
+              <Popconfirm
+                title="Are you sure delete this shape expression?"
+                onConfirm={() => console.log('yes')}
+                onCancel={() => console.log('no')}
+                okText="Yes"
+                cancelText="No"
+              >
+                <Button
+                  shape="circle"
+                  icon={<CloseOutlined />}
+                  style={{
+                    position: 'absolute',
+                    top: '5px',
+                    right: 0,
+                  }}
+                />
+              </Popconfirm>
+            ) : (
+              ''
+            )}
           </div>,
         );
         if (index < data.shapeExprs.length - 1) {
@@ -61,7 +65,6 @@ const ShapeBooleanEditor: EditorComponent<
       }, [])}
       {editMode ? (
         <Button
-          type="primary"
           shape="round"
           icon={<PlusOutlined />}
           style={{ marginTop: '25px' }}

@@ -101,7 +101,6 @@ const ShapesEditor: EditorComponent<shapes, AdditionalShapesEditorProps> = ({
       ))}
       {editMode ? (
         <Button
-          type="primary"
           shape="round"
           icon={<PlusOutlined />}
           style={{ marginBottom: '25px' }}

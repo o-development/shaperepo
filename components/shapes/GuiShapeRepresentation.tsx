@@ -34,6 +34,63 @@ const dummyData: Schema = {
       type: 'ShapeOr',
       shapeExprs: [
         {
+          type: 'ShapeNot',
+          shapeExpr: {
+            type: 'Shape',
+            expression: {
+              type: 'EachOf',
+              expressions: [
+                {
+                  type: 'TripleConstraint',
+                  predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+                  valueExpr: {
+                    type: 'NodeConstraint',
+                    values: ['http://www.w3.org/ns/pim/meeting#Chat'],
+                  },
+                },
+                {
+                  type: 'TripleConstraint',
+                  predicate: 'http://purl.org/dc/elements/1.1/author',
+                  valueExpr: {
+                    type: 'NodeConstraint',
+                    nodeKind: 'iri',
+                  },
+                },
+                {
+                  type: 'TripleConstraint',
+                  predicate: 'http://purl.org/dc/elements/1.1/title',
+                  valueExpr: {
+                    type: 'NodeConstraint',
+                    datatype: 'http://www.w3.org/2001/XMLSchema#string',
+                  },
+                },
+                {
+                  type: 'TripleConstraint',
+                  predicate: 'http://www.w3.org/2005/01/wf/flow#message',
+                  valueExpr: {
+                    type: 'ShapeRef',
+                    reference:
+                      'https://shaperepo.com/schemas/chat#ChatMessageShape',
+                  },
+                  min: 0,
+                  max: -1,
+                },
+                {
+                  type: 'TripleConstraint',
+                  predicate: 'http://www.w3.org/2005/01/wf/flow#participation',
+                  valueExpr: {
+                    type: 'ShapeRef',
+                    reference:
+                      'https://shaperepo.com/schemas/chat#ChatParticipationShape',
+                  },
+                  min: 0,
+                  max: -1,
+                },
+              ],
+            },
+          },
+        },
+        {
           type: 'ShapeAnd',
           shapeExprs: [
             {
@@ -149,61 +206,6 @@ const dummyData: Schema = {
               },
             },
           ],
-        },
-        ,
-        {
-          type: 'Shape',
-          expression: {
-            type: 'EachOf',
-            expressions: [
-              {
-                type: 'TripleConstraint',
-                predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
-                valueExpr: {
-                  type: 'NodeConstraint',
-                  values: ['http://www.w3.org/ns/pim/meeting#Chat'],
-                },
-              },
-              {
-                type: 'TripleConstraint',
-                predicate: 'http://purl.org/dc/elements/1.1/author',
-                valueExpr: {
-                  type: 'NodeConstraint',
-                  nodeKind: 'iri',
-                },
-              },
-              {
-                type: 'TripleConstraint',
-                predicate: 'http://purl.org/dc/elements/1.1/title',
-                valueExpr: {
-                  type: 'NodeConstraint',
-                  datatype: 'http://www.w3.org/2001/XMLSchema#string',
-                },
-              },
-              {
-                type: 'TripleConstraint',
-                predicate: 'http://www.w3.org/2005/01/wf/flow#message',
-                valueExpr: {
-                  type: 'ShapeRef',
-                  reference:
-                    'https://shaperepo.com/schemas/chat#ChatMessageShape',
-                },
-                min: 0,
-                max: -1,
-              },
-              {
-                type: 'TripleConstraint',
-                predicate: 'http://www.w3.org/2005/01/wf/flow#participation',
-                valueExpr: {
-                  type: 'ShapeRef',
-                  reference:
-                    'https://shaperepo.com/schemas/chat#ChatParticipationShape',
-                },
-                min: 0,
-                max: -1,
-              },
-            ],
-          },
         },
       ],
     },
