@@ -3,6 +3,7 @@ import { createContext } from 'react';
 import SchemaRecord from '../../types/SchemaRecord';
 import SchemaEditor from './guiEditors/SchemaEditor';
 import { Switch } from 'antd';
+import { Schema } from '../../types/shexTypes';
 
 interface GuiShapeRepresentationProps {
   schema: SchemaRecord;
@@ -11,6 +12,203 @@ interface GuiShapeRepresentationProps {
 export type getLabelFunction = (url: string) => string | undefined;
 
 export const GetLabelContext = createContext<getLabelFunction>(() => '');
+
+const dummyData: Schema = {
+  type: 'Schema',
+  base: 'https://shaperepo.com/schemas/chat',
+  '@context': 'http://www.w3.org/ns/shex.jsonld',
+  prefixes: {
+    srs: 'https://shaperepo.com/schemas/chat#',
+    xsd: 'http://www.w3.org/2001/XMLSchema#',
+    mee: 'http://www.w3.org/ns/pim/meeting#',
+    purl: 'http://purl.org/dc/elements/1.1/',
+    flow: 'http://www.w3.org/2005/01/wf/flow#',
+    rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
+    ns: 'http://rdfs.org/sioc/ns#',
+    terms: 'http://purl.org/dc/terms/',
+    foaf: 'http://xmlns.com/foaf/0.1/',
+    ic: 'http://www.w3.org/2002/12/cal/ical#',
+  },
+  shapes: {
+    'https://shaperepo.com/schemas/chat#ChatShape': {
+      type: 'ShapeOr',
+      shapeExprs: [
+        {
+          type: 'ShapeAnd',
+          shapeExprs: [
+            {
+              type: 'Shape',
+              expression: {
+                type: 'EachOf',
+                expressions: [
+                  {
+                    type: 'TripleConstraint',
+                    predicate:
+                      'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+                    valueExpr: {
+                      type: 'NodeConstraint',
+                      values: ['http://www.w3.org/ns/pim/meeting#Chat'],
+                    },
+                  },
+                  {
+                    type: 'TripleConstraint',
+                    predicate: 'http://purl.org/dc/elements/1.1/author',
+                    valueExpr: {
+                      type: 'NodeConstraint',
+                      nodeKind: 'iri',
+                    },
+                  },
+                  {
+                    type: 'TripleConstraint',
+                    predicate: 'http://purl.org/dc/elements/1.1/title',
+                    valueExpr: {
+                      type: 'NodeConstraint',
+                      datatype: 'http://www.w3.org/2001/XMLSchema#string',
+                    },
+                  },
+                  {
+                    type: 'TripleConstraint',
+                    predicate: 'http://www.w3.org/2005/01/wf/flow#message',
+                    valueExpr: {
+                      type: 'ShapeRef',
+                      reference:
+                        'https://shaperepo.com/schemas/chat#ChatMessageShape',
+                    },
+                    min: 0,
+                    max: -1,
+                  },
+                  {
+                    type: 'TripleConstraint',
+                    predicate:
+                      'http://www.w3.org/2005/01/wf/flow#participation',
+                    valueExpr: {
+                      type: 'ShapeRef',
+                      reference:
+                        'https://shaperepo.com/schemas/chat#ChatParticipationShape',
+                    },
+                    min: 0,
+                    max: -1,
+                  },
+                ],
+              },
+            },
+            {
+              type: 'Shape',
+              expression: {
+                type: 'EachOf',
+                expressions: [
+                  {
+                    type: 'TripleConstraint',
+                    predicate:
+                      'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+                    valueExpr: {
+                      type: 'NodeConstraint',
+                      values: ['http://www.w3.org/ns/pim/meeting#Chat'],
+                    },
+                  },
+                  {
+                    type: 'TripleConstraint',
+                    predicate: 'http://purl.org/dc/elements/1.1/author',
+                    valueExpr: {
+                      type: 'NodeConstraint',
+                      nodeKind: 'iri',
+                    },
+                  },
+                  {
+                    type: 'TripleConstraint',
+                    predicate: 'http://purl.org/dc/elements/1.1/title',
+                    valueExpr: {
+                      type: 'NodeConstraint',
+                      datatype: 'http://www.w3.org/2001/XMLSchema#string',
+                    },
+                  },
+                  {
+                    type: 'TripleConstraint',
+                    predicate: 'http://www.w3.org/2005/01/wf/flow#message',
+                    valueExpr: {
+                      type: 'ShapeRef',
+                      reference:
+                        'https://shaperepo.com/schemas/chat#ChatMessageShape',
+                    },
+                    min: 0,
+                    max: -1,
+                  },
+                  {
+                    type: 'TripleConstraint',
+                    predicate:
+                      'http://www.w3.org/2005/01/wf/flow#participation',
+                    valueExpr: {
+                      type: 'ShapeRef',
+                      reference:
+                        'https://shaperepo.com/schemas/chat#ChatParticipationShape',
+                    },
+                    min: 0,
+                    max: -1,
+                  },
+                ],
+              },
+            },
+          ],
+        },
+        ,
+        {
+          type: 'Shape',
+          expression: {
+            type: 'EachOf',
+            expressions: [
+              {
+                type: 'TripleConstraint',
+                predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+                valueExpr: {
+                  type: 'NodeConstraint',
+                  values: ['http://www.w3.org/ns/pim/meeting#Chat'],
+                },
+              },
+              {
+                type: 'TripleConstraint',
+                predicate: 'http://purl.org/dc/elements/1.1/author',
+                valueExpr: {
+                  type: 'NodeConstraint',
+                  nodeKind: 'iri',
+                },
+              },
+              {
+                type: 'TripleConstraint',
+                predicate: 'http://purl.org/dc/elements/1.1/title',
+                valueExpr: {
+                  type: 'NodeConstraint',
+                  datatype: 'http://www.w3.org/2001/XMLSchema#string',
+                },
+              },
+              {
+                type: 'TripleConstraint',
+                predicate: 'http://www.w3.org/2005/01/wf/flow#message',
+                valueExpr: {
+                  type: 'ShapeRef',
+                  reference:
+                    'https://shaperepo.com/schemas/chat#ChatMessageShape',
+                },
+                min: 0,
+                max: -1,
+              },
+              {
+                type: 'TripleConstraint',
+                predicate: 'http://www.w3.org/2005/01/wf/flow#participation',
+                valueExpr: {
+                  type: 'ShapeRef',
+                  reference:
+                    'https://shaperepo.com/schemas/chat#ChatParticipationShape',
+                },
+                min: 0,
+                max: -1,
+              },
+            ],
+          },
+        },
+      ],
+    },
+  },
+};
 
 const GuiShapeRepresentation: React.FunctionComponent<GuiShapeRepresentationProps> = ({
   schema,
@@ -37,7 +235,7 @@ const GuiShapeRepresentation: React.FunctionComponent<GuiShapeRepresentationProp
       >
         <Switch onChange={(val) => setEditMode(val)} checked={editMode} />
         <SchemaEditor
-          data={schema}
+          data={dummyData}
           schemaUrl={schema.metadata.id}
           editMode={editMode}
         />

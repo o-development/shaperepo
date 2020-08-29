@@ -1,6 +1,6 @@
 type EditorComponent<T, O = unknown> = React.FunctionComponent<
   O & {
-    data: T;
+    data?: T;
     editMode?: boolean;
   }
 >;

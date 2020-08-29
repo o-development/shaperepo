@@ -96,7 +96,7 @@ const ShapesEditor: EditorComponent<shapes, AdditionalShapesEditorProps> = ({
           key={urlKey}
           style={{ marginBottom: '25px' }}
         >
-          <ShapeExprEditor data={data[urlKey]} />
+          <ShapeExprEditor data={data[urlKey]} editMode={editMode} />
         </Card>
       ))}
       {editMode ? (
