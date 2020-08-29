@@ -4,20 +4,39 @@ import { tripleExpr } from '../../../types/shexTypes';
 import EachOfEditor from './EachOfEditor';
 import OneOfEditor from './OneOfEditor';
 import TripleConstraintEditor from './TipleConstraintEditor';
+import { Radio } from 'antd';
 
-const TripleExprEditor: EditorComponent<tripleExpr> = ({ data }) => {
+const TripleExprEditor: EditorComponent<tripleExpr> = ({ data, editMode }) => {
   if (typeof data === 'string') {
     return <span>data</span>;
-  } else {
-    switch (data.type) {
-      case 'EachOf':
-        return <EachOfEditor data={data} />;
-      case 'OneOf':
-        return <OneOfEditor data={data} />;
-      case 'TripleConstraint':
-        return <TripleConstraintEditor data={data} />;
-    }
   }
+  return (
+    <div>
+      {editMode ? (
+        <Radio.Group
+          options={[
+            { label: 'Each Of', value: 'EachOf' },
+            { label: 'One Of', value: 'OneOf' },
+            { label: 'Triple Constraint', value: 'Triple Constraint' }
+          ]}
+          value={data.type}
+          optionType="button"
+        />
+      ) : (
+        ''
+      )}
+      {(() => {
+        switch (data.type) {
+          case 'EachOf':
+            return <EachOfEditor data={data} editMode={editMode} />;
+          case 'OneOf':
+            return <OneOfEditor data={data} editMode={editMode} />;
+          case 'TripleConstraint':
+            return <TripleConstraintEditor data={data} editMode={editMode} />;
+        }
+      })()}
+    </div>
+  );
 };
 
 export default TripleExprEditor;
