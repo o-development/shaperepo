@@ -1,44 +1,25 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import EditorComponent from './EditorComponent';
 import {
   TripleConstraint,
   shapeExpr,
   Annotation,
 } from '../../../types/shexTypes';
-import { GetLabelContext } from '../GuiShapeRepresentation';
-import CustomLink from '../../common/CustomLink';
-import { Space } from 'antd';
-import CopyToClipboardButton from '../../common/CopyToClipboardButton';
 import ShapeExprEditor from './ShapeExprEditor';
 import Table, { ColumnsType } from 'antd/lib/table';
+import PredicateLink from './PredicateLink';
 
 const TripleConstraintEditor: EditorComponent<
   TripleConstraint | TripleConstraint[]
 > = ({ data }) => {
   const constraints: TripleConstraint[] = Array.isArray(data) ? data : [data];
 
-  const getLabel = useContext(GetLabelContext);
   const columns: ColumnsType<TripleConstraint> = [
     {
       title: 'Property',
       dataIndex: 'predicate',
       render: function renderTablePredicate(predicate: string) {
-        const label = getLabel(predicate);
-        const renderedLink = label ? (
-          <CustomLink href={`/terms?id=${encodeURIComponent(predicate)}`}>
-            {label}
-          </CustomLink>
-        ) : (
-          <CustomLink href={predicate} target="_blank">
-            {predicate}
-          </CustomLink>
-        );
-        return (
-          <Space>
-            <CopyToClipboardButton copyValue={predicate} />
-            {renderedLink}
-          </Space>
-        );
+        return <PredicateLink data={predicate} />;
       },
     },
     {
