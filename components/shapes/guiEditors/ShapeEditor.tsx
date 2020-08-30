@@ -7,10 +7,6 @@ import SemActsEditor from './SemActsEditor';
 import { StopOutlined } from '@ant-design/icons';
 
 const ShapeEditor: EditorComponent<Shape> = ({ data, editMode }) => {
-  // if (data.expression) {
-  //   return <TripleExprEditor data={data.expression} />;
-  // }
-  // return <p>Shape has no expression</p>;
   return (
     <div>
       {editMode ? (

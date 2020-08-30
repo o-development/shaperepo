@@ -1,10 +1,16 @@
 import React from 'react';
 import EditorComponent from './EditorComponent';
 import { OneOf } from '../../../types/shexTypes';
-import EditorTable from '../EditorTable';
+import TripleExpressionListEditor from './TripleExpressionsListEditor';
 
-const OneOfEditor: EditorComponent<OneOf> = ({ data }) => {
-  return <EditorTable expressions={data.expressions} title="One Of" />;
+const EachOfEditor: EditorComponent<OneOf> = ({ data, editMode }) => {
+  return (
+    <TripleExpressionListEditor
+      data={data}
+      editMode={editMode}
+      title={'Only One Of'}
+    />
+  );
 };
 
-export default OneOfEditor;
+export default EachOfEditor;

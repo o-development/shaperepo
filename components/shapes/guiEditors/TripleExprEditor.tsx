@@ -17,10 +17,11 @@ const TripleExprEditor: EditorComponent<tripleExpr> = ({ data, editMode }) => {
           options={[
             { label: 'Each Of', value: 'EachOf' },
             { label: 'One Of', value: 'OneOf' },
-            { label: 'Triple Constraint', value: 'Triple Constraint' }
+            { label: 'Triple Constraint', value: 'Triple Constraint' },
           ]}
           value={data.type}
           optionType="button"
+          style={{ marginTop: '5px' }}
         />
       ) : (
         ''

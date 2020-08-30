@@ -65,6 +65,28 @@ const dummyData: Schema = {
                   },
                 },
                 {
+                  type: 'OneOf',
+                  expressions: [
+                    {
+                      type: 'TripleConstraint',
+                      predicate:
+                        'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+                      valueExpr: {
+                        type: 'NodeConstraint',
+                        values: ['http://www.w3.org/ns/pim/meeting#Chat'],
+                      },
+                    },
+                    {
+                      type: 'TripleConstraint',
+                      predicate: 'http://purl.org/dc/elements/1.1/author',
+                      valueExpr: {
+                        type: 'NodeConstraint',
+                        nodeKind: 'iri',
+                      },
+                    },
+                  ],
+                },
+                {
                   type: 'TripleConstraint',
                   predicate: 'http://purl.org/dc/elements/1.1/title',
                   valueExpr: {
@@ -82,6 +104,28 @@ const dummyData: Schema = {
                   },
                   min: 0,
                   max: -1,
+                },
+                {
+                  type: 'EachOf',
+                  expressions: [
+                    {
+                      type: 'TripleConstraint',
+                      predicate:
+                        'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+                      valueExpr: {
+                        type: 'NodeConstraint',
+                        values: ['http://www.w3.org/ns/pim/meeting#Chat'],
+                      },
+                    },
+                    {
+                      type: 'TripleConstraint',
+                      predicate: 'http://purl.org/dc/elements/1.1/author',
+                      valueExpr: {
+                        type: 'NodeConstraint',
+                        nodeKind: 'iri',
+                      },
+                    },
+                  ],
                 },
                 {
                   type: 'TripleConstraint',
