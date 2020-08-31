@@ -60,6 +60,13 @@ const dummyData: Schema = {
                     type: 'NodeConstraint',
                     values: ['http://www.w3.org/ns/pim/meeting#Chat'],
                   },
+                  annotations: [
+                    {
+                      predicate: 'http://www.w3.org/2000/01/rdf-schema#comment',
+                      object: 'The node type.',
+                      type: 'Annotation',
+                    },
+                  ],
                 },
                 {
                   type: 'TripleConstraint',
@@ -68,6 +75,13 @@ const dummyData: Schema = {
                     type: 'NodeConstraint',
                     nodeKind: 'iri',
                   },
+                  annotations: [
+                    {
+                      predicate: 'http://www.w3.org/2000/01/rdf-schema#comment',
+                      object: 'The user who created the chat.',
+                      type: 'Annotation',
+                    },
+                  ],
                 },
                 {
                   type: 'OneOf',
@@ -80,6 +94,14 @@ const dummyData: Schema = {
                         type: 'NodeConstraint',
                         values: ['http://www.w3.org/ns/pim/meeting#Chat'],
                       },
+                      annotations: [
+                        {
+                          predicate:
+                            'http://www.w3.org/2000/01/rdf-schema#comment',
+                          object: 'Node Type',
+                          type: 'Annotation',
+                        },
+                      ],
                     },
                     {
                       type: 'TripleConstraint',
@@ -88,6 +110,14 @@ const dummyData: Schema = {
                         type: 'NodeConstraint',
                         nodeKind: 'iri',
                       },
+                      annotations: [
+                        {
+                          predicate:
+                            'http://www.w3.org/2000/01/rdf-schema#comment',
+                          object: 'The user who created the chat.',
+                          type: 'Annotation',
+                        },
+                      ],
                     },
                   ],
                 },
@@ -98,6 +128,13 @@ const dummyData: Schema = {
                     type: 'NodeConstraint',
                     datatype: 'http://www.w3.org/2001/XMLSchema#string',
                   },
+                  annotations: [
+                    {
+                      predicate: 'http://www.w3.org/2000/01/rdf-schema#comment',
+                      object: "The Chat's title",
+                      type: 'Annotation',
+                    },
+                  ],
                 },
                 {
                   type: 'TripleConstraint',
@@ -107,6 +144,13 @@ const dummyData: Schema = {
                     reference:
                       'https://shaperepo.com/schemas/chat#ChatMessageShape',
                   },
+                  annotations: [
+                    {
+                      predicate: 'http://www.w3.org/2000/01/rdf-schema#comment',
+                      object: 'A list of messages in the chat',
+                      type: 'Annotation',
+                    },
+                  ],
                   min: 0,
                   max: -1,
                 },

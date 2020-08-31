@@ -2,7 +2,7 @@ import React from 'react';
 import EditorComponent from './EditorComponent';
 import { Shape } from '../../../types/shexTypes';
 import TripleExprEditor from './TripleExprEditor';
-import { Collapse, Tag, Tooltip, Switch, Button, Space } from 'antd';
+import { Collapse, Tag, Tooltip, Switch, Button } from 'antd';
 import SemActsEditor from './SemActsEditor';
 import { StopOutlined, PlusOutlined, CloseOutlined } from '@ant-design/icons';
 import PredicateEditor from './PredicateEditor';
@@ -30,7 +30,7 @@ const ShapeEditor: EditorComponent<Shape> = ({ data, editMode }) => {
         {editMode || (data.extra && data.extra.length > 0) ? (
           <span>
             Allows Extra Properties:{' '}
-            {data.extra.map((predicate) => (
+            {(data.extra || []).map((predicate) => (
               <span
                 key={predicate}
                 style={{
