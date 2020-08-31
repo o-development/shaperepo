@@ -1,4 +1,14 @@
+.ant-table.ant-table-bordered > tr td:last-child {
+  background-color: 'red' !important;
+}
 
+.ant-table > td {
+  background-color: 'green';
+}
+
+.ant-table-cell {
+  background-color: 'red';
+}
 
 @media only screen and (max-width: 757px) {
   .headerRight {

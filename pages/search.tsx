@@ -26,7 +26,7 @@ const Search: NextPage<SearchProps> = (props: SearchProps): ReactElement => {
   mixpanel.track('Search', { query: props.query });
   const results = props.results ? props.results : [];
   return (
-    <Space direction="vertical">
+    <Space direction="vertical" style={{ padding: '50px' }}>
       <Head>
         <title>{props.query} - Search on ShapeRepo</title>
       </Head>

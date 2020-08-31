@@ -19,7 +19,11 @@ interface HomeProps extends BaseProps {
 const Home: NextPage<HomeProps> = ({ err, results }) => {
   mixpanel.track('Home Page Visited');
   return (
-    <Space direction="vertical" size="large">
+    <Space
+      direction="vertical"
+      size="large"
+      style={{ padding: '0 50px 50px 50px' }}
+    >
       <Head>
         <title>ShapeRepo - Make your Apps Interoperable</title>
       </Head>
