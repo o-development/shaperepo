@@ -232,9 +232,9 @@ const GuiShapeRepresentation: React.FunctionComponent<GuiShapeRepresentationProp
           }
         }}
       >
-        <Switch onChange={(val) => setEditMode(val)} checked={editMode} />
+        {/* <Switch onChange={(val) => setEditMode(val)} checked={editMode} /> */}
         <SchemaEditor
-          data={dummyData}
+          data={schema}
           schemaUrl={schema.metadata.id}
           editMode={editMode}
         />
