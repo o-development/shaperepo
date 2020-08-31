@@ -10,7 +10,7 @@ import PredicateLink from './PredicateLink';
 const ShapeEditor: EditorComponent<Shape> = ({ data, editMode }) => {
   return (
     <div>
-      <div style={{ marginTop: '8px' }}>
+      <div style={{ margin: '8px 0 8px 0', lineHeight: 2 }}>
         {editMode ? (
           <Switch
             checkedChildren="Open"
@@ -30,13 +30,17 @@ const ShapeEditor: EditorComponent<Shape> = ({ data, editMode }) => {
           <span>
             Allows Extra Properties:{' '}
             {data.extra.map((predicate) => (
-              <Space key={predicate}>
-                <PredicateLink
-                  style={{ marginLeft: '8px' }}
-                  data={predicate}
-                  editMode={editMode}
-                />
-                <Button shape="circle" icon={<CloseOutlined />} size="small" />
+              <Space key={predicate} style={{ marginRight: '8px' }}>
+                <PredicateLink data={predicate} editMode={editMode} />
+                {editMode ? (
+                  <Button
+                    shape="circle"
+                    icon={<CloseOutlined />}
+                    size="small"
+                  />
+                ) : (
+                  ''
+                )}
               </Space>
             ))}
             {editMode ? (

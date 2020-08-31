@@ -29,7 +29,7 @@ const ShapeBooleanEditor: EditorComponent<
               style={{
                 backgroundColor: '#f0f0f0',
                 width: '5px',
-                marginRight: '5px',
+                marginRight: '8px',
               }}
             />
             <ShapeExprEditor data={shapeExpr} editMode={editMode} />
@@ -46,7 +46,7 @@ const ShapeBooleanEditor: EditorComponent<
                   icon={<CloseOutlined />}
                   style={{
                     position: 'absolute',
-                    top: '5px',
+                    top: '8px',
                     right: 0,
                   }}
                 />
@@ -58,7 +58,7 @@ const ShapeBooleanEditor: EditorComponent<
         );
         if (index < data.shapeExprs.length - 1) {
           agg.push(
-            <h3 style={{ margin: '5px 0 5px 0' }}>{logicalOperatorName}</h3>,
+            <h3 style={{ margin: '8px 0 8px 0' }}>{logicalOperatorName}</h3>,
           );
         }
         return agg;

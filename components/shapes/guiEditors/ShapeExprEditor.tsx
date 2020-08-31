@@ -19,7 +19,7 @@ const ShapeExprEditor: EditorComponent<shapeExpr> = ({ data, editMode }) => {
     <div style={{ position: 'relative', width: '100%' }}>
       {editMode ? (
         <div
-          style={{ borderBottom: '1px solid #f0f0f0', padding: '5px 0 5px 0' }}
+          style={{ borderBottom: '1px solid #f0f0f0', padding: '8px 0 8px 0' }}
         >
           <Select
             value={exprType}

@@ -21,7 +21,7 @@ const TripleExprEditor: EditorComponent<tripleExpr> = ({ data, editMode }) => {
           ]}
           value={data.type}
           optionType="button"
-          style={{ marginTop: '5px' }}
+          style={{ marginTop: '8px' }}
         />
       ) : (
         ''
