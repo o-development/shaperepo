@@ -5,7 +5,7 @@ import TripleExprEditor from './TripleExprEditor';
 import { Collapse, Tag, Tooltip, Switch, Button, Space } from 'antd';
 import SemActsEditor from './SemActsEditor';
 import { StopOutlined, PlusOutlined, CloseOutlined } from '@ant-design/icons';
-import PredicateLink from './PredicateLink';
+import PredicateEditor from './PredicateEditor';
 
 const ShapeEditor: EditorComponent<Shape> = ({ data, editMode }) => {
   return (
@@ -16,6 +16,7 @@ const ShapeEditor: EditorComponent<Shape> = ({ data, editMode }) => {
             checkedChildren="Open"
             unCheckedChildren="Closed"
             checked={!data.closed}
+            style={{ marginRight: '8px' }}
           />
         ) : data.closed ? (
           <Tooltip title="Closed shapes don't allow any additional fields beyond the ones defined here.">
@@ -30,21 +31,27 @@ const ShapeEditor: EditorComponent<Shape> = ({ data, editMode }) => {
           <span>
             Allows Extra Properties:{' '}
             {data.extra.map((predicate) => (
-              <Space key={predicate} style={{ marginRight: '8px' }}>
-                <PredicateLink data={predicate} editMode={editMode} />
+              <span
+                key={predicate}
+                style={{
+                  marginRight: '8px',
+                  display: 'inline-flex',
+                  transform: 'translateY(10px)',
+                }}
+              >
+                <PredicateEditor data={predicate} editMode={editMode} />
                 {editMode ? (
                   <Button
-                    shape="circle"
                     icon={<CloseOutlined />}
-                    size="small"
+                    style={{ borderLeft: 'none' }}
                   />
                 ) : (
                   ''
                 )}
-              </Space>
+              </span>
             ))}
             {editMode ? (
-              <Button shape="round" icon={<PlusOutlined />} size="small">
+              <Button shape="round" icon={<PlusOutlined />}>
                 Add Extra Property
               </Button>
             ) : (

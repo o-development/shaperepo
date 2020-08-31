@@ -42,7 +42,11 @@ const TripleExpressionListEditor: EditorComponent<
             borderRight: '1px solid #f0f0f0',
           }}
         >
-          <TripleExprEditor data={expr} editMode={editMode} />
+          <TripleExprEditor
+            data={expr}
+            editMode={editMode}
+            disableEditMenu={true}
+          />
         </div>
       ))}
     </div>

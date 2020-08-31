@@ -6,13 +6,20 @@ import OneOfEditor from './OneOfEditor';
 import TripleConstraintEditor from './TipleConstraintEditor';
 import { Radio } from 'antd';
 
-const TripleExprEditor: EditorComponent<tripleExpr> = ({ data, editMode }) => {
+interface AdditionalTripleExprEditorProps {
+  disableEditMenu?: boolean;
+}
+
+const TripleExprEditor: EditorComponent<
+  tripleExpr,
+  AdditionalTripleExprEditorProps
+> = ({ data, editMode, disableEditMenu }) => {
   if (typeof data === 'string') {
     return <span>data</span>;
   }
   return (
     <div>
-      {editMode ? (
+      {editMode && !disableEditMenu ? (
         <Radio.Group
           options={[
             { label: 'Each Of', value: 'EachOf' },

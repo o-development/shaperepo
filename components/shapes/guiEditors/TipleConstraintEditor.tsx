@@ -7,11 +7,11 @@ import {
 } from '../../../types/shexTypes';
 import ShapeExprEditor from './ShapeExprEditor';
 import Table, { ColumnsType } from 'antd/lib/table';
-import PredicateLink from './PredicateLink';
+import PredicateEditor from './PredicateEditor';
 
 const TripleConstraintEditor: EditorComponent<
   TripleConstraint | TripleConstraint[]
-> = ({ data }) => {
+> = ({ data, editMode }) => {
   const constraints: TripleConstraint[] = Array.isArray(data) ? data : [data];
 
   const columns: ColumnsType<TripleConstraint> = [
@@ -19,7 +19,7 @@ const TripleConstraintEditor: EditorComponent<
       title: 'Property',
       dataIndex: 'predicate',
       render: function renderTablePredicate(predicate: string) {
-        return <PredicateLink data={predicate} />;
+        return <PredicateEditor data={predicate} editMode={editMode} />;
       },
     },
     {
