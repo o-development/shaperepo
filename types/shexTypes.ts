@@ -11,7 +11,13 @@ export interface Schema {
 
 export type prefixes = Record<string, string>;
 export type shapeExpr = shapeExprObject | string;
-export type shapeExprObject = ShapeOr | ShapeAnd | ShapeNot | NodeConstraint | Shape | ShapeRef;
+export type shapeExprObject =
+  | ShapeOr
+  | ShapeAnd
+  | ShapeNot
+  | NodeConstraint
+  | Shape
+  | ShapeRef;
 
 export interface ShapeOr {
   type: 'ShapeOr';

@@ -25,12 +25,12 @@ const Terms: NextPage<TermProps> = (props: TermProps) => {
   }
   mixpanel.track('Term', { id: props.termRecord._id });
   return (
-    <>
+    <div style={{ padding: '50px' }}>
       <Head>
         <title>{props.termRecord.label} - ShapeRepo</title>
       </Head>
       <TermsPage term={props.termRecord} />
-    </>
+    </div>
   );
 };
 

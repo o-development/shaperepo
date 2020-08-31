@@ -6,7 +6,7 @@ import mixpanel from 'mixpanel-browser';
 const Contact: NextPage = () => {
   mixpanel.track('Contact Page Visited');
   return (
-    <>
+    <div style={{ padding: '50px' }}>
       <h2>Add your project&apos;s shapes to ShapeRepo</h2>
       <p>
         Reach out and we&apos;ll add your shape to ShapeRepo so any similar
@@ -32,7 +32,7 @@ const Contact: NextPage = () => {
           </CustomLink>
         </li>
       </ul>
-    </>
+    </div>
   );
 };
 

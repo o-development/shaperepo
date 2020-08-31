@@ -8,7 +8,11 @@ interface ShexCShapeRepresentationProps {
 const ShexCShapeRepresentation: React.FunctionComponent<ShexCShapeRepresentationProps> = ({
   schema,
 }) => {
-  return <pre>{schema.metadata.shexC}</pre>;
+  return (
+    <pre style={{ padding: '25px 50px 25px 50px' }}>
+      {schema.metadata.shexC}
+    </pre>
+  );
 };
 
 export default ShexCShapeRepresentation;

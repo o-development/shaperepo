@@ -22,6 +22,17 @@ const App: React.FunctionComponent<AppPropsType> = (props) => {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: stylesheet }} />
+      <style>
+        {`
+          .ant-table.ant-table-bordered .ant-table-cell .ant-table.ant-table-bordered tr td:last-child,
+          .ant-table.ant-table-bordered .ant-table-cell .ant-table.ant-table-bordered tr th:last-child {
+            border-right: none !important;
+          }
+          .ant-table.ant-table-bordered .ant-table-cell .ant-table.ant-table-bordered tr th {
+            border-top: 1px solid #f0f0f0;
+          }
+        `}
+      </style>
       <SiteLayout {...props} />
     </>
   );

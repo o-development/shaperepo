@@ -13,7 +13,11 @@ const ShexJShapeRepresentation: React.FunctionComponent<ShexJShapeRepresentation
   };
   delete renderedSchema.metadata;
   delete renderedSchema._id;
-  return <pre>{JSON.stringify(renderedSchema, null, 2)}</pre>;
+  return (
+    <pre style={{ padding: '25px 50px 25px 50px' }}>
+      {JSON.stringify(renderedSchema, null, 2)}
+    </pre>
+  );
 };
 
 export default ShexJShapeRepresentation;
