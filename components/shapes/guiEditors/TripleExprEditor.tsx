@@ -7,9 +7,6 @@ import {
   Annotation,
   tripleExprObject,
 } from '../../../types/shexTypes';
-import EachOfEditor from './EachOfEditor';
-import OneOfEditor from './OneOfEditor';
-import TripleConstraintEditor from './TipleConstraintEditor';
 import { Radio, Table, Button } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
 import PredicateEditor from './PredicateEditor';
@@ -17,19 +14,19 @@ import ShapeExprEditor from './ShapeExprEditor';
 import { CloseOutlined } from '@ant-design/icons';
 
 interface AdditionalTripleExprEditorProps {
-  disableEditMenu?: boolean;
+  isNested?: boolean;
 }
 
 const TripleExprEditor: EditorComponent<
   tripleExpr,
   AdditionalTripleExprEditorProps
-> = ({ data, editMode, disableEditMenu }) => {
+> = ({ data, editMode, isNested }) => {
   if (typeof data === 'string') {
     return <span>data</span>;
   }
   return (
     <div>
-      {editMode && !disableEditMenu ? (
+      {editMode && !isNested ? (
         <Radio.Group
           options={[
             { label: 'Each Of', value: 'EachOf' },
@@ -56,7 +53,13 @@ const TripleExprEditor: EditorComponent<
                 }
                 editMode={editMode}
                 addable={true}
-                title={data.type === 'EachOf' ? 'Each Of' : 'Only One Of'}
+                title={
+                  isNested
+                    ? undefined
+                    : data.type === 'EachOf'
+                    ? 'Each Of'
+                    : 'Only One Of'
+                }
               />
             );
           case 'TripleConstraint':
@@ -94,11 +97,16 @@ const TripleExprTable: React.FunctionComponent<TripleExprTableProps> = ({
         if (expr.type !== 'TripleConstraint') {
           return {
             children: (
-              <TripleExprEditor
-                data={expr}
-                editMode={editMode}
-                disableEditMenu={true}
-              />
+              <div>
+                <div style={{ marginBottom: '16px' }}>
+                  {expr.type === 'EachOf' ? 'Each Of:' : 'Only One Of:'}
+                </div>
+                <TripleExprEditor
+                  data={expr}
+                  editMode={editMode}
+                  isNested={true}
+                />
+              </div>
             ),
             props: {
               colSpan: 4,
@@ -167,19 +175,23 @@ const TripleExprTable: React.FunctionComponent<TripleExprTableProps> = ({
   }
   return (
     <Table
-      title={() => title}
       dataSource={data}
-      bordered
       columns={columns}
       rowKey="predicate"
       size="small"
+      bordered
       pagination={{
         pageSize: 100,
         hideOnSinglePage: true,
       }}
-      style={{
-        margin: 0,
-      }}
+      // expandable={{
+      //   expandedRowRender: function expandedRowRenderer(expr) {
+      //     return (
+      //       <TripleExprEditor data={expr} editMode={editMode} isNested={true} />
+      //     );
+      //   },
+      //   rowExpandable: (expr) => expr.type !== 'TripleConstraint',
+      // }}
     />
   );
 };
