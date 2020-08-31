@@ -36,7 +36,7 @@ const ShapeEditor: EditorComponent<Shape> = ({ data, editMode }) => {
                 style={{
                   marginRight: '8px',
                   display: 'inline-flex',
-                  transform: 'translateY(10px)',
+                  transform: editMode ? 'translateY(10px)' : 'translateY(0)',
                 }}
               >
                 <PredicateEditor data={predicate} editMode={editMode} />
