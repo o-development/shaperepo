@@ -26,7 +26,7 @@ const SchemaEditor: EditorComponent<Schema, AdditionalSchemaEditorProps> = ({
         editMode={editMode}
         schemaUrl={schemaUrl}
       />
-      <Collapse ghost>
+      {/* <Collapse ghost>
         <Panel header="Advanced Schema Settings" key="1">
           <StartEditor data={data.start} editMode={editMode} />
           <ImportsEditor data={data.imports} editMode={editMode} />
@@ -34,7 +34,7 @@ const SchemaEditor: EditorComponent<Schema, AdditionalSchemaEditorProps> = ({
           <PrefixesEditor data={data.prefixes} editMode={editMode} />
           <SemActsEditor data={data.startActs} editMode={editMode} />
         </Panel>
-      </Collapse>
+      </Collapse> */}
     </>
   );
 };

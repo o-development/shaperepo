@@ -21,6 +21,9 @@ const TripleExprEditor: EditorComponent<
   tripleExpr,
   AdditionalTripleExprEditorProps
 > = ({ data, editMode, isNested }) => {
+  if (!data) {
+    return null;
+  }
   if (typeof data === 'string') {
     return <span>data</span>;
   }

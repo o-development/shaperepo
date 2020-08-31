@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import EditorComponent from './EditorComponent';
-import { shapeExpr } from '../../../types/shexTypes';
+import { shapeExpr, NodeConstraint } from '../../../types/shexTypes';
 import ShapeOrEditor from './ShapeOrEditor';
 import ShapeAndEditor from './ShapeAndEditor';
 import ShapeNotEditor from './ShapeNotEditor';
@@ -11,9 +11,10 @@ import { Input, Select } from 'antd';
 
 const ShapeExprEditor: EditorComponent<shapeExpr> = ({ data, editMode }) => {
   const [newShapeExpr, setNewShapeExpr] = useState(
-    data || {
-      type: 'NodeConstraint',
-    },
+    data ||
+      ({
+        type: 'NodeConstraint',
+      } as NodeConstraint),
   );
   const exprType =
     typeof newShapeExpr === 'string' ? 'String' : newShapeExpr.type;
