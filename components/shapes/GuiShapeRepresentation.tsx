@@ -171,7 +171,7 @@ const dummyData: Schema = {
                       predicate: 'http://purl.org/dc/elements/1.1/author',
                       valueExpr: {
                         type: 'NodeConstraint',
-                        nodeKind: 'iri',
+                        datatype: 'http://www.w3.org/2001/XMLSchema#string',
                       },
                     },
                   ],

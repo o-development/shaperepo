@@ -1,34 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import EditorComponent from './EditorComponent';
 import {
   tripleExpr,
-  TripleConstraint,
   shapeExpr,
   Annotation,
   tripleExprObject,
 } from '../../../types/shexTypes';
-import {
-  Radio,
-  Table,
-  Button,
-  Input,
-  Select,
-  Space,
-  Cascader,
-  Dropdown,
-  Menu,
-  InputNumber,
-  Switch,
-} from 'antd';
+import { Radio, Table, Space, Dropdown, Menu, InputNumber, Switch } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
 import PredicateEditor from './PredicateEditor';
 import ShapeExprEditor from './ShapeExprEditor';
-import {
-  CloseOutlined,
-  MoreOutlined,
-  CloseCircleOutlined,
-} from '@ant-design/icons';
-import { Option } from 'antd/lib/mentions';
+import { MoreOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import TextArea from 'antd/lib/input/TextArea';
 
 interface AdditionalTripleExprEditorProps {
@@ -144,7 +126,7 @@ const TripleExprTable: React.FunctionComponent<TripleExprTableProps> = ({
         }
         return (
           <div style={{ opacity: expr.placeholder ? 0.4 : 1 }}>
-            {!valExpr ? 'Anything' : <ShapeExprEditor data={valExpr} />}
+            {<ShapeExprEditor data={valExpr} editMode={editMode} />}
           </div>
         );
       },

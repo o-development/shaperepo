@@ -2,7 +2,7 @@ import React from 'react';
 import EditorComponent from './EditorComponent';
 import { NodeConstraint } from '../../../types/shexTypes';
 import ValueSetValueEditor from './ValueSetValueEditor';
-import { Tag } from 'antd';
+import { Tag, Select } from 'antd';
 
 // This is a helpful resource http://books.xmlschemata.org/relaxng/relax-CHP-19.html
 const dataTypes: Record<string, string> = {
@@ -59,7 +59,10 @@ const dataTypes: Record<string, string> = {
   'http://www.w3.org/2001/XMLSchema#unsignedShort': 'Unsigned Short',
 };
 
-const NodeConstraintEditor: EditorComponent<NodeConstraint> = ({ data }) => {
+const NodeConstraintEditor: EditorComponent<NodeConstraint> = ({
+  data,
+  editMode,
+}) => {
   if (data.values) {
     const valueComponents = data.values.map((value, i) => (
       <ValueSetValueEditor data={value} key={i} />
@@ -68,6 +71,12 @@ const NodeConstraintEditor: EditorComponent<NodeConstraint> = ({ data }) => {
   }
   if (data.datatype) {
     const dataTypeName = dataTypes[data.datatype] || data.datatype;
+    if (editMode) {
+      const dataTypeOptions = Object.keys(dataTypes).map((dataType) => {
+        return { label: dataTypes[dataType], value: dataType };
+      });
+      return <Select options={dataTypeOptions} value={data.datatype} />;
+    }
     return <Tag>{dataTypeName}</Tag>;
   }
   if (data.nodeKind) {

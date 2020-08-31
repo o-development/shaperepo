@@ -1,10 +1,9 @@
 import React, { useContext, CSSProperties } from 'react';
 import CustomLink from '../../common/CustomLink';
 import { GetLabelContext } from '../GuiShapeRepresentation';
-import { Space, Select, Input } from 'antd';
+import { Space, Input } from 'antd';
 import CopyToClipboardButton from '../../common/CopyToClipboardButton';
 import EditorComponent from './EditorComponent';
-import { Option } from 'antd/lib/mentions';
 
 interface AdditionalPredicateLinkProps {
   style?: CSSProperties;
@@ -34,7 +33,9 @@ const PredicateEditor: EditorComponent<
       </Space>
     );
   }
-  return <Input addonBefore={label} value={data} />;
+  return (
+    <Input placeholder="Search Properties" addonBefore={label} value={data} />
+  );
 };
 
 export default PredicateEditor;
